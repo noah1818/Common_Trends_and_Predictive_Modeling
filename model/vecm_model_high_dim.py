@@ -12,7 +12,7 @@ class VECMModelHD(VECMModel):
     High-dimensional extension of the VECM estimation procedure.
 
     Implements the Frisch-Waugh residualization for rank and lag selection, 
-    QR with pivoting, etc as in KIT Working Paper 124 (Liang and Schienle). 
+    QR with pivoting, etc as in Section 3.4 of our Paper. 
     The Model inherits from the 'standard' VECMModel class.
 
     Group lasso based rank and lagselection is implemented in a separate class
@@ -42,8 +42,7 @@ class VECMModelHD(VECMModel):
 
         Notes
         -----
-        This follows Eq. (3) and (4) in Liang and Schienle (2019), *Determination of 
-        vector error correction models in high dimensions*.
+        This follows Section 3.4.1 of our paper.
         """
         # Sanity checks
         if any(x is None for x in (
@@ -95,7 +94,7 @@ class VECMModelHD(VECMModel):
 
         Notes
         -----
-        This follows Eq. (9) in Liang and Schienle (2019).
+        This follows Section 3.4.2 of our paper.
         """
         # Sanity checks
         if any(x is None for x in (
@@ -150,8 +149,7 @@ class VECMModelHD(VECMModel):
 
         Notes
         -----
-        This follows Theorem 2.2 in Liang and Schienle (2019), *Determination of
-        vector error correction models in high dimensions*.
+        Used in Eq. (27) of our paper.
         """
         # Sanity check
         if R_tilde.ndim != 2 or R_tilde.shape[0] != R_tilde.shape[1]:
@@ -190,8 +188,7 @@ class VECMModelHD(VECMModel):
 
         Notes
         -----
-        Used in the Eq. (7) in Liang and Schienle (2019), *Determination of
-        vector error correction models in high dimensions*.
+        Used in Eq. (23) of our paper.
         """
         # Sanity check
         if not isinstance(A, np.ndarray) or A.ndim != 2:
@@ -223,8 +220,7 @@ class VECMModelHD(VECMModel):
 
         Notes
         -----
-        Used in the Eq. (17) in Liang and Schienle (2019), *Determination of
-        vector error correction models in high dimensions*.
+        Used in Section 3.4 of our paper.
         """
         # Sanity checks
         if not isinstance(self.T_eff, int) or self.T_eff <= 0:
@@ -429,8 +425,7 @@ class VECMModelHD(VECMModel):
         
         Notes
         -----
-        This follows Eq. (10) in Liang and Schienle (2019), *Determination of 
-        vector error correction models in high dimensions*.
+        Used in Eq. (30) of our paper.
         """
         T_eff = self.T_eff
         cross = (1 / T_eff) * dY_check @ dX_check.T
@@ -475,8 +470,7 @@ class VECMModelHD(VECMModel):
 
         Notes
         -----
-        This follows Eq. (11) in Liang and Schienle (2019), *Determination of 
-        vector error correction models in high dimensions*.
+        Used in Eq. (31) of our paper.
         """
         # Sanity check
         if dX_check.shape[1] != dY_check.shape[1]:
