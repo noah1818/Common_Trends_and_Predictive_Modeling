@@ -3,8 +3,6 @@ from typing import Tuple
 import numpy as np
 from numpy.typing import NDArray
 from numpy.linalg import det
-from numpy.linalg import inv as invert_matrix
-from numpy.linalg import lstsq
 from scipy.linalg import qr
 
 from vecm_model_standard import VECMModel
@@ -67,7 +65,7 @@ class VECMModelHD(VECMModel):
         Y1_tilde = (Y1.T - dX.T @ OdX).T
         Pi_tilde = (dY_tilde @ Y1.T) @ invert_matrix(Y1_tilde @ Y1_tilde.T)
         '''
-        # Project out the effect of Delta X using QR decomposition (Frisch–Waugh residualization).
+        # Project out the effect of Delta X using QR decomposition (Frischâ€“Waugh residualization).
         Q, _ = np.linalg.qr(dX.T, mode="reduced")
         dY_tilde = dY - (dY @ Q) @ Q.T
         Y1_tilde = Y1 - (Y1 @ Q) @ Q.T
