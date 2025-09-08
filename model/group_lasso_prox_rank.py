@@ -328,7 +328,7 @@ class GroupLassoProxRankSelection:
 
         Notes
         -----
-        This uses the objective function in 3.27 of the thesis.
+        This uses the objective function in 3.27 of our paper.
         """
         residual = Y - R.T @ Z
         loss = np.linalg.norm(residual, "fro")**2
