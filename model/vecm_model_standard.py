@@ -61,7 +61,7 @@ class VECMModel:
 
         Notes
         -----
-        This follows Eq. 3.2 of the thesis.
+        This follows Eq. (3.2) of our paper.
         """
         # Sanity checks
         if not dfs:
@@ -178,7 +178,7 @@ class VECMModel:
 
         Notes
         -----
-        This follows Eq. 3.2 of the thesis.
+        This follows Eq. (3.2) of our paper.
         """
         # Sanity checks
         if not isinstance(self._P, int) or self._P <= 0:
@@ -277,7 +277,7 @@ class VECMModel:
 
         Notes
         -----
-        This follows Eq. 3.4 of the thesis.
+        This follows Eq. (3.4) of our paper.
         """
         # Sanity checks
         if any(x is None for x in (
@@ -423,7 +423,7 @@ class VECMModel:
 
         Notes
         -----
-        This follows Section 3.3.1 of the thesis.
+        This follows Section 3.3.1 of our paper.
         """
         # sanity checks
         if any(x is None for x in (getattr(self, "_delta_X", None), getattr(self, "_delta_Y", None), getattr(self, "_Y_minus_1", None))):
@@ -542,7 +542,7 @@ class VECMModel:
 
         Notes
         -----
-        This follows Eq. 4.42 of the thesis.
+        This follows Eq. (4.42) of our paper.
         """
         # Sanity checks
         K, r = alpha.shape
@@ -616,7 +616,7 @@ class VECMModel:
 
         Notes
         -----
-        This follows Eq. 4.35 of the thesis.
+        This follows Eq. (4.35) of our paper.
         """
         # Sanity checks
         if not hasattr(self, "_P") or not isinstance(self._P, int) or self._P <= 0:
@@ -642,7 +642,7 @@ class VECMModel:
         Gamma_sum = np.sum(Gamma_blocks, axis=0)
         I_K = np.eye(K)
 
-        # Inner (K-r)×(K-r) matrix
+        # Inner (K-r)أ—(K-r) matrix
         W = alpha_perp.T @ (I_K - Gamma_sum) @ beta_perp
 
         if matrix_rank(W) < K_minus_r:
@@ -677,7 +677,7 @@ class VECMModel:
 
         Notes
         -----
-        This follows Eq. 3.7 of the thesis.
+        This follows Eq. (3.7) of our paper.
         """
         # Sanity checks
         if Y.ndim != 2:
@@ -789,7 +789,7 @@ class VECMModel:
 
         Notes
         -----
-        This follows Section 3.3.2 of the thesis.
+        This follows Section 3.3.2 of our paper.
         """
         # Sanity checks
         if not isinstance(self.T_eff, int) or self.T_eff <= 0:
@@ -851,7 +851,7 @@ class VECMModel:
 
         Notes
         -----
-        This follows Eq. 3.14 of the thesis.
+        This follows Eq. (3.14) of our paper.
         """
         # Sanity checks and alias for readability
         K = self.K
@@ -906,7 +906,7 @@ class VECMModel:
         
         Notes
         -----
-        This follows Eq. 3.15 of the thesis.
+        This follows Eq. (3.15) of our paper.
         """
         # Sanity checks
         K = self.K
@@ -961,7 +961,7 @@ class VECMModel:
 
         Notes
         -----
-        This follows Eq. 3.16 of the thesis.
+        This follows Eq. (3.16) of our paper.
         """
         # Sanity checks
         K = self.K
@@ -1016,7 +1016,7 @@ class VECMModel:
 
         Notes
         -----
-        This follows Eq. 3.17 of the thesis.
+        This follows Eq. (3.17) of our paper.
         """
         # Sanity checks
         K = self.K
@@ -1070,7 +1070,7 @@ class VECMModel:
             or if 'r0' is not a valid integer index.
         Notes
         -----
-        This follows Eq. 3.19 of the thesis.
+        This follows Eq. (3.19) of our paper.
         """
         # Sanity checks
         if not isinstance(self.T_eff, int) or self.T_eff <= 0:
@@ -1136,7 +1136,7 @@ class VECMModel:
 
         Notes
         -----
-        This follows Eq. 3.20 of the thesis.
+        This follows Eq. (3.20) of our paper.
         """
         # Sanity checks
         if not isinstance(self.T_eff, int) or self.T_eff <= 0:
@@ -1197,7 +1197,7 @@ class VECMModel:
 
         Notes
         -----
-        This follows Section 3.3.3 of the thesis.
+        This follows Section 3.3.3 of our paper.
         """
         # Sanity checks
         if test_stats.shape != crit_vals.shape:
