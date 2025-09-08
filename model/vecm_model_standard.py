@@ -1,14 +1,11 @@
-import os
 from typing import Tuple, Optional
 
 import numpy as np
 from numpy.linalg import inv as invert_matrix
-from numpy.linalg import lstsq
 from numpy.linalg import matrix_rank
 from numpy.typing import NDArray  # For precise type hints of NumPy arrays, e.g. NDArray[np.floating]
 import pandas as pd
 from scipy.linalg import null_space
-from scipy.linalg import qr
 from scipy.linalg import sqrtm
 from statsmodels.tsa.stattools import adfuller
 
