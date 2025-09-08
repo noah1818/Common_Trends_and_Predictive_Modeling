@@ -380,7 +380,7 @@ class GroupLassoProxLagSelection:
         
         Notes
         -----
-        This uses the objective function in 3.32 of the thesis.
+        This uses the objective function in 3.32 of our paper.
         """
         residual = Y - Gamma @ Z
         loss = np.linalg.norm(residual, "fro") ** 2
