@@ -3,6 +3,9 @@ from typing import Tuple, Optional
 import numpy as np
 from numpy.linalg import inv as invert_matrix
 from numpy.linalg import matrix_rank
+from numpy.linalg import lstsq
+from numpy.linalg import eig
+from numpy.linalg import det
 from numpy.typing import NDArray  # For precise type hints of NumPy arrays, e.g. NDArray[np.floating]
 import pandas as pd
 from scipy.linalg import null_space
@@ -301,11 +304,11 @@ class VECMModel:
         # Residuals of Delta Y on Delta X
         # This is computational much more efficient then using
         # I_T - (Delta X).T (Delta X (Delta X).T)^-1 Delta X on Delta Y and Y_-1
-        B0, *_ = np.linalg.lstsq(dX.T, dY.T, rcond=None)  # coefficients
+        B0, *_ = lstsq(dX.T, dY.T, rcond=None)  # coefficients
         R0 = dY - (B0.T @ dX)
 
         # Residuals of Y_{t-1} on Delta X
-        B1, *_ = np.linalg.lstsq(dX.T, Y1.T, rcond=None)
+        B1, *_ = lstsq(dX.T, Y1.T, rcond=None)
         R1 = Y1 - (B1.T @ dX)
 
         # compute residual covariance blocks S_ij for i,j = 0,1
@@ -384,7 +387,7 @@ class VECMModel:
         if A.ndim != 2 or A.shape[0] != A.shape[1]:
             raise ValueError("Input must be a square matrix (n x n).")
 
-        eigvals, eigvecs = np.linalg.eig(A)
+        eigvals, eigvecs = eig(A)
         order = np.argsort(eigvals.real)[::-1]  # sort by descending real part
         eigvals_sorted = eigvals[order]
         eigvecs_sorted = eigvecs[:, order]
@@ -459,7 +462,7 @@ class VECMModel:
             _, eigvecs_sorted = self.sort_eigenvectors(S_tilde)
 
         # alpha and beta
-        beta = (eigvecs_sorted[:, :r].T @ S_11_half_inv).T  # (K, r)
+        beta = S_11_half_inv @ eigvecs_sorted[:, :r]  # (K, r)
         alpha = S_01 @ beta @ invert_matrix(beta.T @ S_11 @ beta)  # (K, r)
 
         # Compute Gamma
@@ -575,9 +578,9 @@ class VECMModel:
         A1 = alpha_perp @ invert_matrix(beta_perp.T @ alpha_perp)
         A2 = beta @ invert_matrix(alpha.T @ beta)  # r x r
 
-        # Build components
-        persistent_component = A1 @ beta_perp.T @ X  # (K x T)
-        transitory_component = A2 @ alpha.T @ X  # (K x T)
+        # Build components, the extra transpose is, since we used rows not columns, like they do
+        persistent_component = (A1 @ beta_perp.T).T @ X  # (K x T)
+        transitory_component = (A2 @ alpha.T).T @ X  # (K x T)
 
         return persistent_component, transitory_component
 
@@ -867,7 +870,7 @@ class VECMModel:
             raise ValueError(
                 f"m (lag order) must be a positive integer, got {m}")
 
-        return np.log((np.linalg.det(sigma_u_hat))) + (2 * m * K**2 * np.log(np.log(T_eff))) / T_eff
+        return np.log((det(sigma_u_hat))) + (2 * m * K**2 * np.log(np.log(T_eff))) / T_eff
 
     def compute_SC(self, sigma_u_hat: NDArray[np.floating], m: int, T_eff: int) -> np.floating:
         """
@@ -922,7 +925,7 @@ class VECMModel:
             raise ValueError(
                 f"m (lag order) must be a positive integer, got {m}")
 
-        return np.log((np.linalg.det(sigma_u_hat))) + (m * K**2 * np.log(T_eff)) / T_eff
+        return np.log((det(sigma_u_hat))) + (m * K**2 * np.log(T_eff)) / T_eff
     
     def compute_FPE(self, sigma_u_hat: NDArray[np.floating], m: int, T_eff: int) -> np.floating:
         """
@@ -977,7 +980,7 @@ class VECMModel:
             raise ValueError(
                 f"m (lag order) must be a positive integer, got {m}")
 
-        return ((T_eff + K * m + 1) / (T_eff - K * m - 1))**K * (np.linalg.det(sigma_u_hat))
+        return ((T_eff + K * m + 1) / (T_eff - K * m - 1))**K * (det(sigma_u_hat))
 
     def compute_AIC(self, sigma_u_hat: NDArray[np.floating], m: int, T_eff: int) -> np.floating:
         """
@@ -1032,7 +1035,7 @@ class VECMModel:
             raise ValueError(
                 f"m (lag order) must be a positive integer, got {m}")
 
-        return np.log((np.linalg.det(sigma_u_hat))) + (2 * m * K**2) / T_eff
+        return np.log((det(sigma_u_hat))) + (2 * m * K**2) / T_eff
 
     def compute_likelihood_ratio_test_statistic(self, r0: int, eigvals: NDArray[np.floating]) -> np.floating:
         """
