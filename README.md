@@ -15,7 +15,7 @@ It provides:
 - **Multinomial Logit models**  
   For cluster-based prediction of lead–lag effects.
 - **Real-time data fetching utilities**  
-  For applying models to streaming market data.
+  For streaming real-time market data from multiple exchanges.
 
 ---
 
