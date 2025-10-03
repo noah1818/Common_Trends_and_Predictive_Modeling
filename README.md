@@ -2,7 +2,8 @@
 
 This repository contains the implementation of methods developed in the paper  
 **“Common Trends and Predictive Modeling on Tick-Based Order Book Data”**  
-by *Noah Boss* and *Marie-Christine Dueker*, applied to financial time series. (https://drive.google.com/file/d/1TbFgMp9YhpEZdqq2-EQsrPPb9z320mJc/view?usp=share_link)
+by *Noah Boss* and *Marie-Christine Dueker*, applied to financial time series. 
+(see: https://drive.google.com/file/d/1TbFgMp9YhpEZdqq2-EQsrPPb9z320mJc/view?usp=share_link)
 
 It provides:
 
