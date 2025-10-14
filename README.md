@@ -21,7 +21,7 @@ It provides:
 
 ## 📂 Repository Structure
 
-```text
+```bash
 ├── vecm_model_standard.py       # Standard VECM model
 ├── vecm_model_high_dim.py       # High-dimensional VECM (Frisch–Waugh residualization)
 ├── group_lasso_prox_rank.py     # Group Lasso rank selection
@@ -36,5 +36,8 @@ It provides:
 ├── test_highDim_model.ipynb     # Notebook: high-dimensional VECM demo
 │
 └── README.md                    # Project documentation
+```
+
+---
 
 Link: https://drive.google.com/file/d/1TbFgMp9YhpEZdqq2-EQsrPPb9z320mJc/view?usp=share_link
